@@ -25,6 +25,31 @@ function fetchSheetData(auth) {
   });
 }
 
+function uploadSheetData(auth, rows) {
+  const sheets = google.sheets({ version: 'v4', auth });
+  return new Promise((resolve, reject) => {
+    sheets.spreadsheets.values.update(
+      {
+        spreadsheetId: config.sheetId,
+        range: sheetRange,
+        valueInputOption: 'RAW',
+        resource: {
+          values: rows,
+        },
+      },
+      (err) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve();
+      },
+    );
+  });
+}
+
 module.exports = {
   fetchSheetData,
+  uploadSheetData,
 };
