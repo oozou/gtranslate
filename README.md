@@ -59,7 +59,7 @@ This will install `gtranslate` globally so that it may be run from the command l
 ```
 - For first run, setup some sample translations to be set to google sheet
 
-## 3. Create configuration files
+## 3. Create configuration file
 
 In the project npm root path create file "translate-config.json" 
 
