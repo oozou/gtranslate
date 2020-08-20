@@ -1,0 +1,14 @@
+{
+  "en": {
+    "hello": "Hello",
+    "goodMorning": "Good morning"
+  },
+  "th": {
+    "hello": "สวัสดี",
+    "goodMorning": "สวัสดีตอนเช้า"
+  },
+  "jp": {
+    "hello": "こんにちは",
+    "goodMorning": "おはようございます"
+  }
+}
