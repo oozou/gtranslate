@@ -2,9 +2,8 @@
   "name": "gtranslate",
   "version": "1.0.0",
   "main": "./index.js",
-  "bin": "./bin/index.js",
+  "bin": "./bin/gtranslate.js",
   "repository": "git@github.com:oozou/gtranslate.git",
-  "author": "Sudhir Shrestha <sudhirshrestha@live.com>",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src",
