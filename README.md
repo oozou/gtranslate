@@ -34,7 +34,7 @@ This will install `gtranslate` globally so that it may be run from the command l
 - Enable Google Sheets API ( Visit Library > Google Sheets API > Enable )
 - Configure OAuth consent screen
 - Create "Oauth client ID" credentials for Desktop app
-- Download secret file for created credentials
+- Download secret file for created credentials and save it as "credentials.json" under project root
 
 ## 2. Select a Google Spreadsheet file
 
