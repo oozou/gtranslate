@@ -1,7 +1,7 @@
 function sync() {
-    console.log("TODO")
+  console.log('TODO');
 }
 
 module.exports = {
-    sync,
-}
+  sync,
+};

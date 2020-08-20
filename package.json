@@ -5,5 +5,14 @@
   "bin": "./bin/index.js",
   "repository": "git@github.com:oozou/gtranslate.git",
   "author": "Sudhir Shrestha <sudhirshrestha@live.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
+  },
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  }
 }

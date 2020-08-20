@@ -1,4 +1,4 @@
-const { sync } = require("./index.js");
+const { sync } = require('./index.js');
 
 function run() {
   sync();
