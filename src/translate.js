@@ -93,13 +93,7 @@ function exportTranslations(translations) {
     config.locales.forEach((locale) => {
       fs.writeFileSync(
         `${locale}.json`,
-        JSON.stringify(
-          config.flatten
-            ? unflatten(translations[locale])
-            : translations[locale],
-          null,
-          2
-        )
+        JSON.stringify(unflatten(translations[locale]), null, 2)
       );
     });
   } else {

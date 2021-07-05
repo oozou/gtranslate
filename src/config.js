@@ -14,7 +14,7 @@ function getConfig() {
         const translation = JSON.parse(translationFileData);
         translations = {
           ...translations,
-          [locale]: config.flatten ? flatten(translation) : translation,
+          [locale]: flatten(translation),
         };
       });
       fs.writeFileSync(
@@ -39,7 +39,6 @@ function getConfig() {
     sheetId,
     sheetName,
     locales: config.locales,
-    flatten: config.flatten,
   };
 }
 
