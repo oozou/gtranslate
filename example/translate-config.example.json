@@ -1,5 +1,5 @@
 {
-  "translationFile": "translations.json",
   "sheetId": "<sheetId>",
-  "sheetName": "<sheetName>"
+  "sheetName": "<sheetName>",
+  "locales": ["th", "en"]
 }

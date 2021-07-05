@@ -23,6 +23,8 @@ This will install `gtranslate` globally so that it may be run from the command l
 
 ### Locally (from project npm root path)
     ./node-modules/.bin/gtranslate.js
+    OR
+    yarn sync
 
 
 
@@ -40,20 +42,23 @@ This will install `gtranslate` globally so that it may be run from the command l
 
 - Anyone with edit access to this file can update it using this package
 
-## 3. Manage your local translations under "translations.json"
+## 3. Manage your local translations file
 ```
+[en.json]
+
 {
-  "en": {
+  "homepage": {
     "hello": "Hello",
     "goodMorning": "Good morning"
-  },
-  "th": {
+  }
+}
+
+[th.json]
+
+{
+  "homepage": {
     "hello": "สวัสดี",
-    "goodMorning": "สวัสดีตอนเช้า"
-  },
-  "jp": {
-    "hello": "こんにちは",
-    "goodMorning": "おはようございます"
+    "goodMorning": "กริ้งมอหนูด"
   }
 }
 ```
@@ -66,9 +71,10 @@ In the project npm root path create file "translate-config.json"
 ```
 
 {
-  "translationFile": "translations.json",
   "sheetId": "<sheetId>",
-  "sheetName": "<sheetName>"
+  "sheetName": "<sheetName>",
+  "locales": ["th", "en"],
+  "translationsPath": "src/lang"
 }
 
 ```
@@ -76,16 +82,17 @@ In the project npm root path create file "translate-config.json"
 
 | Key  | Description |
 | ------------- | ------------- |
-| `translationFile`  | `Path to file containing translations`  |
 | `sheetId`  | `Google sheet ID (Can be found in  google sheet URL)`  |
 | `sheetName`  | `Google sheet Name (Can be found on the bottom left tabs under google sheet UI)`  |
+| `locales`  | `(array) In case your translation file is split into multiple files (en.json, th.json)`  |
+| `translationsPath`  | `(optional) Output folder of localization files`  |
 
 ## 4. First time authorization
 
 - Run the script following steps in `Usage` section
 - When running this first time, you will be prompted to visit an external url
 - Copy that url, open in browser and authorize the application
-- Finally you will be prompted with a code  in browser
+- Finally, you will be prompted with a code  in browser
 - Copy over the code to previous terminal
 - NOTE : This will run the sync translations script as well
 
@@ -95,3 +102,4 @@ In the project npm root path create file "translate-config.json"
 - Translations in google sheet will always be prioritized
 - To add a new key to translation, add it to local "translations.json" file with mock data and run the script
 - To remove a key, remove keys from both sheet and local "translations.json" file and run the script
+- For multiple translation files each <locale>.json will be combined and flattened to translations.json

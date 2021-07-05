@@ -1,9 +1,9 @@
-const fs = require('fs');
-const merge = require('lodash/merge');
-
-const config = require('./config');
-const { fetchSheetData, uploadSheetData } = require('./gsheet');
-const { log } = require('./logger');
+const fs = require("fs");
+const merge = require("lodash/merge");
+const { unflatten } = require("flat");
+const config = require("./config");
+const { fetchSheetData, uploadSheetData } = require("./gsheet");
+const { log } = require("./logger");
 
 function deserializeTranslations(translations) {
   const languages = Object.keys(translations);
@@ -41,13 +41,13 @@ function serializeTranslations(translations) {
 
 function getLocalTranslations() {
   try {
-    const translationFile = fs.readFileSync(config.translationsPath);
+    const translationFile = fs.readFileSync(config.translationsFile);
     const translations = JSON.parse(translationFile);
 
     return deserializeTranslations(translations);
   } catch (err) {
     throw new Error(
-      `Error reading translation file ${config.translationsPath}`,
+      `Error reading translation file ${config.translationsFile}`
     );
   }
 }
@@ -75,7 +75,7 @@ function getRemoteTranslations(auth) {
 }
 
 function uploadRemoteTranslations(auth, languages, translations) {
-  const rows = [['Key', ...languages]];
+  const rows = [["Key", ...languages]];
 
   const keys = Object.keys(translations);
 
@@ -84,20 +84,24 @@ function uploadRemoteTranslations(auth, languages, translations) {
     rows.push([k, ...languages.map((l) => translation[l])]);
   });
 
-  log('Uploading new translations');
+  log("Uploading new translations");
   return uploadSheetData(auth, rows);
 }
 
 function exportTranslations(translations) {
-  fs.writeFileSync(
-    config.translationsPath,
-    JSON.stringify(translations, null, 2),
-  );
+  config.locales.forEach((locale) => {
+    fs.writeFileSync(
+      `${config.translationsPath}/${locale}.json`,
+      JSON.stringify(unflatten(translations[locale]), null, 2)
+    );
+  });
+  // Cleanup merge translations.json
+  fs.unlinkSync(config.translationsFile);
 }
 
 function getTranslations(auth) {
   return new Promise((resolve, reject) => {
-    log('Fetching translations');
+    log("Fetching translations");
     return Promise.all([getLocalTranslations(), getRemoteTranslations(auth)])
       .then(([localTranslations, remoteTranslations]) => {
         resolve({
@@ -115,12 +119,12 @@ function syncTranslations(auth, { localTranslations, remoteTranslations }) {
   const mergedTranslations = merge(localTranslations, remoteTranslations);
   const newLocalTranslations = serializeTranslations(mergedTranslations);
   const languages = Object.keys(newLocalTranslations);
-  log('Syncing translations');
+  log("Syncing translations");
 
   return uploadRemoteTranslations(auth, languages, mergedTranslations).then(
     () => {
       exportTranslations(newLocalTranslations);
-    },
+    }
   );
 }
 
