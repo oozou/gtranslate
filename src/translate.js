@@ -41,13 +41,13 @@ function serializeTranslations(translations) {
 
 function getLocalTranslations() {
   try {
-    const translationFile = fs.readFileSync(config.translationsPath);
+    const translationFile = fs.readFileSync(config.translationsFile);
     const translations = JSON.parse(translationFile);
 
     return deserializeTranslations(translations);
   } catch (err) {
     throw new Error(
-      `Error reading translation file ${config.translationsPath}`
+      `Error reading translation file ${config.translationsFile}`
     );
   }
 }
@@ -89,19 +89,14 @@ function uploadRemoteTranslations(auth, languages, translations) {
 }
 
 function exportTranslations(translations) {
-  if (config.locales) {
-    config.locales.forEach((locale) => {
-      fs.writeFileSync(
-        `${locale}.json`,
-        JSON.stringify(unflatten(translations[locale]), null, 2)
-      );
-    });
-  } else {
+  config.locales.forEach((locale) => {
     fs.writeFileSync(
-      config.translationsPath,
-      JSON.stringify(translations, null, 2)
+      `${config.translationsPath}/${locale}.json`,
+      JSON.stringify(unflatten(translations[locale]), null, 2)
     );
-  }
+  });
+  // Cleanup merge translations.json
+  fs.unlinkSync(config.translationsFile);
 }
 
 function getTranslations(auth) {

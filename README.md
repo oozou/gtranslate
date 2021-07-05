@@ -42,20 +42,23 @@ This will install `gtranslate` globally so that it may be run from the command l
 
 - Anyone with edit access to this file can update it using this package
 
-## 3. Manage your local translations under "translations.json"
+## 3. Manage your local translations file
 ```
+[en.json]
+
 {
-  "en": {
+  "homepage": {
     "hello": "Hello",
     "goodMorning": "Good morning"
-  },
-  "th": {
+  }
+}
+
+[th.json]
+
+{
+  "homepage": {
     "hello": "สวัสดี",
-    "goodMorning": "สวัสดีตอนเช้า"
-  },
-  "jp": {
-    "hello": "こんにちは",
-    "goodMorning": "おはようございます"
+    "goodMorning": "กริ้งมอหนูด"
   }
 }
 ```
@@ -68,9 +71,11 @@ In the project npm root path create file "translate-config.json"
 ```
 
 {
-  "translationFile": "translations.json",
+  "translationsFile": "translations.json",
   "sheetId": "<sheetId>",
-  "sheetName": "<sheetName>"
+  "sheetName": "<sheetName>",
+  "locales": ["th", "en"],
+  "translationsPath": "src/lang"
 }
 
 ```
@@ -78,11 +83,11 @@ In the project npm root path create file "translate-config.json"
 
 | Key  | Description |
 | ------------- | ------------- |
-| `translationFile`  | `Path to file containing translations`  |
+| `translationsFile`  | `Path to file containing translations`  |
 | `sheetId`  | `Google sheet ID (Can be found in  google sheet URL)`  |
 | `sheetName`  | `Google sheet Name (Can be found on the bottom left tabs under google sheet UI)`  |
 | `locales`  | `(array) In case your translation file is split into multiple files (en.json, th.json)`  |
-| `flatten`  | `(boolean) Supports for flattening/deflattening JSON`  |
+| `translationsPath`  | `(optional) Output folder of localization files`  |
 
 ## 4. First time authorization
 
