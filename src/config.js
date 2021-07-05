@@ -21,7 +21,7 @@ function getConfig() {
     });
 
     fs.writeFileSync(
-      config.translationsFile,
+      config.translationsFile || "translations.json",
       JSON.stringify(translations, null, 2)
     );
   } catch (err) {

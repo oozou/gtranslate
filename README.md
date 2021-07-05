@@ -71,7 +71,6 @@ In the project npm root path create file "translate-config.json"
 ```
 
 {
-  "translationsFile": "translations.json",
   "sheetId": "<sheetId>",
   "sheetName": "<sheetName>",
   "locales": ["th", "en"],
@@ -83,7 +82,6 @@ In the project npm root path create file "translate-config.json"
 
 | Key  | Description |
 | ------------- | ------------- |
-| `translationsFile`  | `Path to file containing translations`  |
 | `sheetId`  | `Google sheet ID (Can be found in  google sheet URL)`  |
 | `sheetName`  | `Google sheet Name (Can be found on the bottom left tabs under google sheet UI)`  |
 | `locales`  | `(array) In case your translation file is split into multiple files (en.json, th.json)`  |
