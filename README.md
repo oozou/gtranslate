@@ -1,8 +1,8 @@
 # GTranslate
 
-GTranslate is a tool for managing static translations using Google Sheets. This helps buisness team to manage translations using sheets which can then be synced with local translation (json) files using cli command. 
+GTranslate is a tool for managing static translations using Google Sheets. This helps buisness team to manage translations using sheets which can then be synced with local translation (json) files using cli command.
 
-# Installation:
+## Installation
 
 #### Globally via `npm`
 
@@ -14,21 +14,19 @@ This will install `gtranslate` globally so that it may be run from the command l
 
     npm install https://github.com/oozou/gtranslate --save-dev
 
-
-
-# Usage
+## Usage
 
 ### Globally
+
     gtranslate
 
 ### Locally (from project npm root path)
+
     ./node-modules/.bin/gtranslate.js
     OR
     yarn sync
 
-
-
-# Setup
+## Setup
 
 ## 1. Enable Google Sheets API
 
@@ -37,12 +35,26 @@ This will install `gtranslate` globally so that it may be run from the command l
 - Configure OAuth consent screen
 - Create "Oauth client ID" credentials for Desktop app
 - Download secret file for created credentials and save it as "credentials.json" under project root
+- [23-Jan-2023] The new credentials.json from GCP is missing the following property `"urn:ietf:wg:oauth:2.0:oob"`
+
+### From (credentials.json)
+
+```json
+"redirect_uris": ["http://localhost"]
+```
+
+### To
+
+```json
+"redirect_uris": ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"]
+```
 
 ## 2. Select a Google Spreadsheet file
 
 - Anyone with edit access to this file can update it using this package
 
 ## 3. Manage your local translations file
+
 ```
 [en.json]
 
@@ -62,13 +74,14 @@ This will install `gtranslate` globally so that it may be run from the command l
   }
 }
 ```
+
 - For first run, setup some sample translations to be set to google sheet
 
 ## 3. Create configuration file
 
-In the project npm root path create file "translate-config.json" 
+In the project npm root path create file "translate-config.json"
 
-```
+```json
 
 {
   "sheetId": "<sheetId>",
@@ -78,7 +91,6 @@ In the project npm root path create file "translate-config.json"
 }
 
 ```
-
 
 | Key  | Description |
 | ------------- | ------------- |
@@ -96,10 +108,9 @@ In the project npm root path create file "translate-config.json"
 - Copy over the code to previous terminal
 - NOTE : This will run the sync translations script as well
 
+## Notes
 
-
-# Notes
 - Translations in google sheet will always be prioritized
 - To add a new key to translation, add it to local "translations.json" file with mock data and run the script
 - To remove a key, remove keys from both sheet and local "translations.json" file and run the script
-- For multiple translation files each <locale>.json will be combined and flattened to translations.json
+- For multiple translation files each `<locale>`.json will be combined and flattened to translations.json
