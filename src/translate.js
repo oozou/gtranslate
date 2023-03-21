@@ -25,7 +25,7 @@ function deserializeTranslations(translations) {
 
 function serializeTranslations(translations) {
   const data = {};
-  const transKeys = Object.keys(translations);
+  const transKeys = Object.keys(translations).sort();
 
   transKeys.forEach((k) => {
     const translation = translations[k];
@@ -77,7 +77,7 @@ function getRemoteTranslations(auth) {
 function uploadRemoteTranslations(auth, languages, translations) {
   const rows = [["Key", ...languages]];
 
-  const keys = Object.keys(translations);
+  const keys = Object.keys(translations).sort();
 
   keys.forEach((k) => {
     const translation = translations[k];
